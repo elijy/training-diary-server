@@ -1,0 +1,11 @@
+{
+  "name": "training-diary-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/elijy/training-diary-server.git",
+  "author": "Elijah Joseph-Young <16768157+elijy@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
