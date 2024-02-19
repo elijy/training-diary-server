@@ -1,4 +1,5 @@
 const express = require("express");
+const crypto = require("crypto");
 
 const router = express.Router();
 
@@ -19,6 +20,14 @@ const WORKOUTS = [
 
 router.get("/workouts", async (req, res) => {
   res.send(WORKOUTS);
+});
+
+router.post("/workouts", async (req, res) => {
+  const { date } = req.body;
+  const id = crypto.randomBytes(2).toString("hex");
+  const newWorkout = { id, date };
+  WORKOUTS.push(newWorkout);
+  res.send(newWorkout);
 });
 
 module.exports = router;

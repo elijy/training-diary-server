@@ -1,1 +1,10 @@
 http://localhost:3005/workouts
+
+###
+
+POST http://localhost:3005/workouts HTTP/1.1
+content-type: application/json
+
+{
+    "date": "2024-02-016T19:55:34.707Z"
+}
