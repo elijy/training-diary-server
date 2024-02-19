@@ -30,4 +30,11 @@ router.post("/workouts", async (req, res) => {
   res.send(newWorkout);
 });
 
+router.delete("/workouts/:id", async (req, res) => {
+  const { id } = req.params;
+  const index = WORKOUTS.findIndex((item) => item.id === id);
+  const deletedWorkout = WORKOUTS.splice(index, 1);
+  res.send(deletedWorkout[0]);
+});
+
 module.exports = router;
