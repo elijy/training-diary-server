@@ -26,10 +26,10 @@ router.get("/workouts", async (req, res) => {
 
 router.post("/workouts", async (req, res) => {
   const { date } = req.body;
-  const id = crypto.randomBytes(2).toString("hex");
-  const newWorkout = { id, date };
-  WORKOUTS.push(newWorkout);
-  res.send(newWorkout);
+  const { data } = await axios.post("http://localhost:3001/workouts", {
+    date,
+  });
+  res.send(data);
 });
 
 router.delete("/workouts/:id", async (req, res) => {
