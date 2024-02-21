@@ -1,5 +1,6 @@
 const express = require("express");
 const crypto = require("crypto");
+const axios = require("axios");
 
 const router = express.Router();
 
@@ -19,7 +20,8 @@ const WORKOUTS = [
 ];
 
 router.get("/workouts", async (req, res) => {
-  res.send(WORKOUTS);
+  const { data } = await axios.get("http://localhost:3001/workouts");
+  res.send(data);
 });
 
 router.post("/workouts", async (req, res) => {
