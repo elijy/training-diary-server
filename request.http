@@ -11,3 +11,7 @@ content-type: application/json
 
 ###
 DELETE http://localhost:3005/workouts/40bf HTTP/1.1
+
+###
+http://localhost:3005/exercises
+
