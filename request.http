@@ -25,3 +25,12 @@ content-type: application/json
     "workoutId": "40bf"
 }
 
+###
+
+PUT http://localhost:3005/exercises/6550 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Bench 2",
+    "workoutId": "40bf"
+}
