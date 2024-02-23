@@ -8,4 +8,13 @@ router.get("/exercises", async (req, res) => {
   res.send(data);
 });
 
+router.post("/exercises", async (req, res) => {
+  const { name, workoutId } = req.body;
+  const { data } = await axios.post("http://localhost:3001/exercises", {
+    name,
+    workoutId,
+  });
+  res.send(data);
+});
+
 module.exports = router;
