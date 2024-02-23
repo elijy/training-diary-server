@@ -27,4 +27,10 @@ router.put("/exercises/:id", async (req, res) => {
   res.send(data);
 });
 
+router.delete("/exercises/:id", async (req, res) => {
+  const { id } = req.params;
+  const { data } = await axios.delete(`http://localhost:3001/exercises/${id}`);
+  res.send(data);
+});
+
 module.exports = router;
