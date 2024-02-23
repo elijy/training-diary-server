@@ -37,3 +37,6 @@ content-type: application/json
 
 ###
 DELETE http://localhost:3005/exercises/ab81 HTTP/1.1
+
+###
+http://localhost:3005/sets?exerciseId=bcce
