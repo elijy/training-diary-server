@@ -4,7 +4,10 @@ const axios = require("axios");
 const router = express.Router();
 
 router.get("/exercises", async (req, res) => {
-  const { data } = await axios.get("http://localhost:3001/exercises");
+  const { workoutId } = req.query;
+  const { data } = await axios.get(
+    `http://localhost:3001/exercises?workoutId=${workoutId}`
+  );
   res.send(data);
 });
 
