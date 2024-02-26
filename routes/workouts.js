@@ -1,7 +1,7 @@
-const express = require("express");
-const axios = require("axios");
+import { Router } from "express";
+import axios from "axios";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/workouts", async (req, res) => {
   const { data } = await axios.get("http://localhost:3001/workouts");
@@ -22,4 +22,4 @@ router.delete("/workouts/:id", async (req, res) => {
   res.send(data);
 });
 
-module.exports = router;
+export default router;

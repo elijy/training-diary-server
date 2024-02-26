@@ -5,6 +5,7 @@
   "repository": "https://github.com/elijy/training-diary-server.git",
   "author": "Elijah Joseph-Young <16768157+elijy@users.noreply.github.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start:server": "yarn json-server db.json -p 3001",
     "start:node": "nodemon index.js",

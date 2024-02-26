@@ -1,13 +1,13 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const expressGraphQL = require("express-graphql").graphqlHTTP;
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import { graphqlHTTP as expressGraphQL } from "express-graphql";
 
-const schema = require("./schema/schema");
+import schema from "./schema/schema.js";
 
-const workoutRouter = require("./routes/workouts");
-const exercisesRouter = require("./routes/exercises");
-const setsRouter = require("./routes/sets");
+import workoutRouter from "./routes/workouts.js";
+import exercisesRouter from "./routes/exercises.js";
+import setsRouter from "./routes/sets.js";
 
 const app = express();
 const port = 3005;

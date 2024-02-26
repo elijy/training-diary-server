@@ -1,5 +1,5 @@
-const graphql = require("graphql");
-const axios = require("axios");
+import graphql from "graphql";
+import axios from "axios";
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLList } =
   graphql;
@@ -26,6 +26,6 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-module.exports = new GraphQLSchema({
+export default new GraphQLSchema({
   query: RootQuery,
 });

@@ -1,7 +1,7 @@
-const express = require("express");
-const axios = require("axios");
+import { Router } from "express";
+import axios from "axios";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/sets", async (req, res) => {
   const { exerciseId } = req.query;
@@ -27,4 +27,4 @@ router.delete("/sets/:id", async (req, res) => {
   res.send(data);
 });
 
-module.exports = router;
+export default router;
