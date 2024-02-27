@@ -1,5 +1,6 @@
 import graphql from "graphql";
 import axios from "axios";
+
 import { ExerciseType } from "./exercises.js";
 
 const { GraphQLObjectType, GraphQLString, GraphQLList } = graphql;
