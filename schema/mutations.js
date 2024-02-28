@@ -20,5 +20,15 @@ export const mutation = new GraphQLObjectType({
         return res.data;
       },
     },
+    deleteWorkout: {
+      type: WorkoutType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      async resolve(parentValue, { id }) {
+        const res = await axios.delete(`http://localhost:3001/workouts/${id}`);
+        return res.data;
+      },
+    },
   },
 });
