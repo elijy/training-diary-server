@@ -45,5 +45,20 @@ export const mutation = new GraphQLObjectType({
         return res.data;
       },
     },
+    editExercise: {
+      type: ExerciseType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        workoutId: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      async resolve(parentValue, { id, name, workoutId }) {
+        const res = await axios.put(`http://localhost:3001/exercises/${id}`, {
+          name,
+          workoutId,
+        });
+        return res.data;
+      },
+    },
   },
 });
