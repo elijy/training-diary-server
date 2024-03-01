@@ -87,5 +87,15 @@ export const mutation = new GraphQLObjectType({
         return res.data;
       },
     },
+    deleteSet: {
+      type: SetType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      async resolve(parentValue, { id }) {
+        const res = await axios.delete(`http://localhost:3001/sets/${id}`);
+        return res.data;
+      },
+    },
   },
 });
