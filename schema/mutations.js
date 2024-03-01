@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { WorkoutType } from "./workout.js";
 import { ExerciseType } from "./exercises.js";
+import { SetType } from "./sets.js";
 
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = graphql;
 
@@ -67,6 +68,22 @@ export const mutation = new GraphQLObjectType({
       },
       async resolve(parentValue, { id }) {
         const res = await axios.delete(`http://localhost:3001/exercises/${id}`);
+        return res.data;
+      },
+    },
+    addSet: {
+      type: SetType,
+      args: {
+        weight: { type: new GraphQLNonNull(GraphQLString) },
+        reps: { type: new GraphQLNonNull(GraphQLString) },
+        exerciseId: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      async resolve(parentValue, { weight, reps, exerciseId }) {
+        const res = await axios.post(`http://localhost:3001/sets`, {
+          weight,
+          reps,
+          exerciseId,
+        });
         return res.data;
       },
     },
