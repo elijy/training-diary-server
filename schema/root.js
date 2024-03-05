@@ -32,8 +32,13 @@ export const RootQuery = new GraphQLObjectType({
     },
     sets: {
       type: new GraphQLList(SetType),
-      async resolve() {
-        const res = await axios.get(`http://localhost:3001/sets`);
+      args: {
+        exerciseId: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      async resolve(parentValue, { exerciseId }) {
+        const res = await axios.get(
+          `http://localhost:3001/sets?exerciseId=${exerciseId}`
+        );
         return res.data;
       },
     },
