@@ -1,11 +1,14 @@
-import graphql from "graphql";
+import {
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLInt,
+} from "graphql";
 import axios from "axios";
 
 import { WorkoutType } from "./workout.js";
 import { ExerciseType } from "./exercises.js";
 import { SetType } from "./sets.js";
-
-const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = graphql;
 
 export const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -74,8 +77,8 @@ export const mutation = new GraphQLObjectType({
     addSet: {
       type: SetType,
       args: {
-        weight: { type: new GraphQLNonNull(GraphQLString) },
-        reps: { type: new GraphQLNonNull(GraphQLString) },
+        weight: { type: GraphQLInt },
+        reps: { type: GraphQLInt },
         exerciseId: { type: new GraphQLNonNull(GraphQLString) },
       },
       async resolve(parentValue, { weight, reps, exerciseId }) {
