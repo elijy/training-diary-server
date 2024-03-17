@@ -3,12 +3,12 @@ import axios from "axios";
 
 import { ExerciseType } from "./exercises.js";
 
-const { GraphQLObjectType, GraphQLString, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } = graphql;
 
 export const WorkoutType = new GraphQLObjectType({
   name: "Workout",
   fields: {
-    id: { type: GraphQLString },
+    id: { type: GraphQLInt },
     date: { type: GraphQLString },
     exercises: {
       type: new GraphQLList(ExerciseType),

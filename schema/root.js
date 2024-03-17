@@ -5,6 +5,8 @@ import { WorkoutType } from "./workout.js";
 import { ExerciseType } from "./exercises.js";
 import { SetType } from "./sets.js";
 
+import { client } from "../db/index.js";
+
 const { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLString } =
   graphql;
 
@@ -14,8 +16,10 @@ export const RootQuery = new GraphQLObjectType({
     workouts: {
       type: new GraphQLList(WorkoutType),
       async resolve() {
-        const res = await axios.get(`http://localhost:3001/workouts`);
-        return res.data;
+        const { rows } = await client.query(
+          "SELECT * FROM workouts ORDER BY date;"
+        );
+        return rows.map((row) => ({ ...row, date: row.date.toString() }));
       },
     },
     exercises: {
