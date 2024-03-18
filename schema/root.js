@@ -17,7 +17,7 @@ export const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(WorkoutType),
       async resolve() {
         const { rows } = await client.query(
-          "SELECT * FROM workouts ORDER BY date;"
+          "SELECT * FROM workouts ORDER BY date DESC;"
         );
         return rows.map((row) => ({ ...row, date: row.date.toString() }));
       },
