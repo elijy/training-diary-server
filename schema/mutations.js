@@ -10,6 +10,8 @@ import { WorkoutType } from "./workout.js";
 import { ExerciseType } from "./exercises.js";
 import { SetType } from "./sets.js";
 
+import { client } from "../db/index.js";
+
 export const mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
@@ -19,10 +21,12 @@ export const mutation = new GraphQLObjectType({
         date: { type: new GraphQLNonNull(GraphQLString) },
       },
       async resolve(parentValue, { date }) {
-        const res = await axios.post(`http://localhost:3001/workouts`, {
-          date,
-        });
-        return res.data;
+        const { rows } = await client.query(
+          "INSERT INTO workouts(date) VALUES ($1) RETURNING *;",
+          [date]
+        );
+
+        return rows[0];
       },
     },
     deleteWorkout: {
