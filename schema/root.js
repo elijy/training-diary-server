@@ -7,8 +7,13 @@ import { SetType } from "./sets.js";
 
 import { client } from "../db/index.js";
 
-const { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLString } =
-  graphql;
+const {
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLInt,
+} = graphql;
 
 export const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -25,13 +30,14 @@ export const RootQuery = new GraphQLObjectType({
     exercises: {
       type: new GraphQLList(ExerciseType),
       args: {
-        workoutId: { type: new GraphQLNonNull(GraphQLString) },
+        workoutId: { type: new GraphQLNonNull(GraphQLInt) },
       },
       async resolve(parentValue, { workoutId }) {
-        const res = await axios.get(
-          `http://localhost:3001/exercises?workoutId=${workoutId}`
+        const { rows } = await client.query(
+          'SELECT * FROM exercises WHERE "workoutId"=$1 ORDER BY "createdAt";',
+          [workoutId]
         );
-        return res.data;
+        return rows;
       },
     },
     sets: {
