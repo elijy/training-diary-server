@@ -47,14 +47,15 @@ export const mutation = new GraphQLObjectType({
       type: ExerciseType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        workoutId: { type: new GraphQLNonNull(GraphQLString) },
+        workoutId: { type: new GraphQLNonNull(GraphQLInt) },
       },
       async resolve(parentValue, { name, workoutId }) {
-        const res = await axios.post(`http://localhost:3001/exercises`, {
-          name,
-          workoutId,
-        });
-        return res.data;
+        const { rows } = await client.query(
+          'INSERT INTO exercises(name, "workoutId") VALUES ($1, $2) RETURNING *;',
+          [name, workoutId]
+        );
+
+        return rows[0];
       },
     },
     editExercise: {
