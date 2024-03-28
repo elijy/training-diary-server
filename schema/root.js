@@ -1,5 +1,4 @@
 import graphql from "graphql";
-import axios from "axios";
 
 import { WorkoutType } from "./workout.js";
 import { ExerciseType } from "./exercises.js";
@@ -7,13 +6,7 @@ import { SetType } from "./sets.js";
 
 import { client } from "../db/index.js";
 
-const {
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLString,
-  GraphQLInt,
-} = graphql;
+const { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInt } = graphql;
 
 export const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -43,13 +36,14 @@ export const RootQuery = new GraphQLObjectType({
     sets: {
       type: new GraphQLList(SetType),
       args: {
-        exerciseId: { type: new GraphQLNonNull(GraphQLString) },
+        exerciseId: { type: new GraphQLNonNull(GraphQLInt) },
       },
       async resolve(parentValue, { exerciseId }) {
-        const res = await axios.get(
-          `http://localhost:3001/sets?exerciseId=${exerciseId}`
+        const { rows } = await client.query(
+          'SELECT * FROM sets WHERE "exerciseId"=$1 ORDER BY "createdAt";',
+          [exerciseId]
         );
-        return res.data;
+        return rows;
       },
     },
   },

@@ -1,11 +1,11 @@
 import graphql from "graphql";
 
-const { GraphQLObjectType, GraphQLString, GraphQLInt } = graphql;
+const { GraphQLObjectType, GraphQLInt } = graphql;
 
 export const SetType = new GraphQLObjectType({
   name: "Set",
   fields: {
-    id: { type: GraphQLString },
+    id: { type: GraphQLInt },
     weight: { type: GraphQLInt },
     reps: { type: GraphQLInt },
   },
