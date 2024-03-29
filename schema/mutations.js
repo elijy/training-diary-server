@@ -76,11 +76,15 @@ export const mutation = new GraphQLObjectType({
     deleteExercise: {
       type: ExerciseType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLString) },
+        id: { type: new GraphQLNonNull(GraphQLInt) },
       },
       async resolve(parentValue, { id }) {
-        const res = await axios.delete(`http://localhost:3001/exercises/${id}`);
-        return res.data;
+        const { rows } = await client.query(
+          "DELETE FROM exercises WHERE id=$1 RETURNING *;",
+          [id]
+        );
+
+        return rows[0];
       },
     },
     addSet: {
