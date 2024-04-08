@@ -3,12 +3,12 @@ import axios from "axios";
 
 import { SetType } from "./sets.js";
 
-const { GraphQLObjectType, GraphQLString, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } = graphql;
 
 export const ExerciseType = new GraphQLObjectType({
   name: "Exercise",
   fields: {
-    id: { type: GraphQLString },
+    id: { type: GraphQLInt },
     name: { type: GraphQLString },
     sets: {
       type: new GraphQLList(SetType),
