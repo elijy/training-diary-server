@@ -92,15 +92,15 @@ export const mutation = new GraphQLObjectType({
       args: {
         weight: { type: GraphQLInt },
         reps: { type: GraphQLInt },
-        exerciseId: { type: new GraphQLNonNull(GraphQLString) },
+        exerciseId: { type: new GraphQLNonNull(GraphQLInt) },
       },
       async resolve(parentValue, { weight, reps, exerciseId }) {
-        const res = await axios.post(`http://localhost:3001/sets`, {
-          weight,
-          reps,
-          exerciseId,
-        });
-        return res.data;
+        const { rows } = await client.query(
+          'INSERT INTO sets(weight, reps, "exerciseId") VALUES ($1, $2, $3) RETURNING *;',
+          [weight, reps, exerciseId]
+        );
+
+        return rows[0];
       },
     },
     deleteSet: {
