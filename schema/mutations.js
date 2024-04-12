@@ -61,16 +61,16 @@ export const mutation = new GraphQLObjectType({
     editExercise: {
       type: ExerciseType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLString) },
+        id: { type: new GraphQLNonNull(GraphQLInt) },
         name: { type: new GraphQLNonNull(GraphQLString) },
-        workoutId: { type: new GraphQLNonNull(GraphQLString) },
       },
-      async resolve(parentValue, { id, name, workoutId }) {
-        const res = await axios.put(`http://localhost:3001/exercises/${id}`, {
-          name,
-          workoutId,
-        });
-        return res.data;
+      async resolve(parentValue, { id, name }) {
+        const { rows } = await client.query(
+          "UPDATE exercises SET name=$1 WHERE id=$2 RETURNING *;",
+          [name, id]
+        );
+
+        return rows[0];
       },
     },
     deleteExercise: {
